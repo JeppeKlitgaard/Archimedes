@@ -1,7 +1,6 @@
 """
 Contains the ArchimedesSite and associated logic.
 """
-from typing import Optional
 
 from archimedes.author import Author
 from archimedes.compile import CompilerPlugin
@@ -19,5 +18,5 @@ class ArchimedesSite:
         self.archi_config = archi_config
         self.compilers: list[CompilerPlugin] = []
 
-    def resolve_author(ident: str) -> Author:
+    def resolve_author(self, ident: str) -> Author:
         pass

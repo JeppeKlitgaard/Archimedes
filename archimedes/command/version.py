@@ -1,6 +1,4 @@
-from doit.cmd_base import Command as DoitCommand
-
-from archimedes.command import CommandPlugin
+from archimedes.command.base import CommandPlugin
 
 
 class CommandVersion(CommandPlugin):

@@ -5,7 +5,6 @@ All compilers, even the default ones, are implemented as plugins.
 """
 
 from abc import abstractmethod
-from io import RawIOBase
 
 from archimedes.plugin import BasePlugin
 

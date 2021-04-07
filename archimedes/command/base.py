@@ -3,7 +3,7 @@ from doit.cmd_base import Command as DoitCommand
 from archimedes.plugin import BasePlugin
 
 
-class CommandPlugin(BasePlugin, DoitCommand):
+class CommandPlugin(BasePlugin, DoitCommand):  # type: ignore
     doc_purpose: str
     doc_usage: str
     doc_description: str
@@ -12,5 +12,5 @@ class CommandPlugin(BasePlugin, DoitCommand):
         BasePlugin.__init__(self)
         DoitCommand.__init__(self)
 
-    def execute(self):
+    def execute(self) -> None:
         ...

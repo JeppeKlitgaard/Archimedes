@@ -1,4 +1,4 @@
-import importlib
+import importlib.util
 import logging
 import os
 import sys
@@ -13,7 +13,7 @@ from archimedes.config import ArchiTOMLConfig, SiteConfig
 logger = logging.getLogger(__name__)
 
 
-def run_cli(args: Optional[list[str]] = None):
+def run_cli(args: Optional[list[str]] = None) -> None:
     """
     Runs Archimedes.
     """
@@ -52,7 +52,7 @@ def run_cli(args: Optional[list[str]] = None):
         "user_site_config", archi_config.config_file
     )
     user_site_config_module = importlib.util.module_from_spec(import_spec)
-    import_spec.loader.exec_module(user_site_config_module)
+    import_spec.loader.exec_module(user_site_config_module)  # type: ignore
 
     # We have now resolved site_config
     site_config = SiteConfig(user_config=user_site_config_module)
@@ -62,13 +62,16 @@ def run_cli(args: Optional[list[str]] = None):
     site = ArchimedesSite(archi_config=archi_config, site_config=site_config)
     # doit_site = DoitArchimedes(site)
 
+    import pdb
+
+    pdb.set_trace()
 
 
-class CommandHelp(DoitHelp):
+class CommandHelp(DoitHelp):  # type: ignore
     """
     Display help dialog.
     """
 
     @staticmethod
-    def print_usage(cmds):
+    def print_usage(cmds: str) -> None:
         ...

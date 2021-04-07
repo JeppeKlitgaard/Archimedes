@@ -21,10 +21,6 @@ class MetafileExtractor(MetadataExtractorPlugin):
             )
 
         # File exists, read it using toml
-
-        with open(meta_filepath, "r") as f:
-            metadata_str = f.read()
-
         metadata_raw = toml.load(meta_filepath)
 
         return Metadata.from_raw_dict(metadata_raw)

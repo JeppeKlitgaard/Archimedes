@@ -6,10 +6,10 @@ import pytest
 
 @pytest.fixture
 def nonexistant_file() -> Path:
-    _ = Path("/tmp/file_that_does_not_exist_ever_lalalala")
-    assert not _.exists()
+    filepath = Path("/tmp/file_that_does_not_exist_ever_lalalala")
+    assert not filepath.exists()
 
-    return _
+    return filepath
 
 
 @pytest.fixture

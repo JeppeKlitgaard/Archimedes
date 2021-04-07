@@ -5,7 +5,7 @@ from __future__ import annotations
 
 from pathlib import Path
 from types import ModuleType
-from typing import Any, Optional, Type
+from typing import Any, Optional, Type, TypeVar
 
 import toml
 from pydantic import BaseSettings, FilePath
@@ -19,7 +19,9 @@ from archimedes.config import (
 SENTINEL = object()
 
 
-### TOML Config
+# TOML Config
+
+T = TypeVar("T", bound="TOMLConfig")
 
 
 class TOMLConfig(BaseSettings):
@@ -32,7 +34,7 @@ class TOMLConfig(BaseSettings):
     """
 
     @classmethod
-    def load(cls: Type[TOMLConfig], filepath: Path) -> TOMLConfig:
+    def load(cls: Type[T], filepath: Path) -> T:
         """
         Loads a TOML Config file and parses it as a TOMLConfig.
         """
@@ -42,7 +44,7 @@ class TOMLConfig(BaseSettings):
         return cls.loads(filestring)
 
     @classmethod
-    def loads(cls: Type[TOMLConfig], filestring: str) -> TOMLConfig:
+    def loads(cls: Type[T], filestring: str) -> T:
         """
         Loads a TOML formatted config string and parses it as a TOMLConfig.
         """
@@ -59,7 +61,7 @@ class ArchiTOMLConfig(TOMLConfig):
     config_file: FilePath
 
 
-### Site Config
+# Site Config
 
 
 class SiteConfig:
@@ -111,7 +113,7 @@ class SiteConfig:
         if setting in self.WHITELIST_ATTRS:
             super().__setattr__(setting, value)
         else:
-            setattr(self.runtime_config, setting, value)
+            setattr(self.runtime_config, setting, value)  # type: ignore
 
     def __getattribute__(self, setting: str) -> Any:
         # This is seems a bit iffy.
@@ -125,18 +127,17 @@ class SiteConfig:
         if setting in self.WHITELIST_ATTRS:
             return super().__getattribute__(setting)
 
-        runtime_config = self.runtime_config
-        result = getattr(runtime_config, setting, SENTINEL)
+        result = getattr(self.runtime_config, setting, SENTINEL)  # type: ignore
         # Setting was specified in runtime_config
         if result is not SENTINEL:
             return result
 
-        result = getattr(self.user_config, setting, SENTINEL)
+        result = getattr(self.user_config, setting, SENTINEL)  # type: ignore
         # Setting was specified in user_config, not in runtime_config
         if result is not SENTINEL:
             return result
 
-        result = getattr(self.default_config, setting, SENTINEL)
+        result = getattr(self.default_config, setting, SENTINEL)  # type: ignore
         # Setting was specified in default_config,
         # not in runtime_config, user_config
         if result is not SENTINEL:
