@@ -3,9 +3,8 @@ Archimedes is an opinionated static site generator geared
 towards personal websites and microblogs.
 """
 
-from archimedes.compile import CompilerPlugin
+import archimedes.log
+from archimedes.archimedes import ArchimedesSite
+from archimedes.utils.version import get_version as __get_version
 
-
-class ArchimedesSite:
-    def __init__(self) -> None:
-        self.compilers: list[CompilerPlugin] = []
+__version__ = __get_version()

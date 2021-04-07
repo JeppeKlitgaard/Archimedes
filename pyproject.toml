@@ -5,8 +5,18 @@ description = "A Modern Static Site Generator"
 authors = ["Jeppe Klitgaard <jeppe@dapj.dk>"]
 license = "MIT"
 
+[tool.poetry.scripts]
+archi = "archimedes.__main__:run_cli"
+
 [tool.poetry.dependencies]
 python = "^3.9"
+toml = "^0.10.2"
+Mako = "^1.1.4"
+pydantic = {extras = ["email"], version = "^1.8.1"}
+semver = "^2.13.0"
+read-version = {extras = ["toml"], version = "^0.3.1"}
+semantic-version = "^2.8.5"
+doit = "^0.33.1"
 
 [tool.poetry.dev-dependencies]
 isort = "^5.8.0"
@@ -15,6 +25,7 @@ mypy = "^0.812"
 tox = "^3.23.0"
 flake8 = "^3.9.0"
 pyproject-flake8 = "^0.0.1-alpha.2"
+pytest = "^6.2.3"
 
 [tool.flake8]
 max-line-length = 88

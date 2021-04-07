@@ -5,6 +5,9 @@ Most functionality is implemented through the use of plugins, making Archimedes 
 extensible.
 """
 
+from abc import ABC
 
-class BasePlugin:
-    pass
+
+class BasePlugin(ABC):
+    name: str
+    friendly_name: str
