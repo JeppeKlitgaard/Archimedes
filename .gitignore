@@ -1,0 +1,14 @@
+# Direnv
+.envrc
+
+# Python
+__pycache__
+
+# Venv
+.venv
+
+# Mypy
+.mypy_cache
+
+# Tox
+.tox
