@@ -12,3 +12,6 @@ __pycache__
 
 # Tox
 .tox
+
+# Temporarily ignore these
+JeppeScienceSite
