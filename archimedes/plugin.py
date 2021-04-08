@@ -5,9 +5,12 @@ Most functionality is implemented through the use of plugins, making Archimedes 
 extensible.
 """
 
-from abc import ABC
+from abc import ABCMeta
 
 
-class BasePlugin(ABC):
+class BasePlugin(ABCMeta):
     name: str
     friendly_name: str
+
+    def __init__(self) -> None:
+        ...
