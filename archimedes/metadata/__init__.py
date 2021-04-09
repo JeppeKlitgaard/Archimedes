@@ -2,5 +2,11 @@
 Contains metadata-related code.
 """
 
-from .base import Metadata, MetadataExtractorPlugin
-from .meta_file import MetafileExtractor
+from archimedes.metadata.base import Metadata, MetadataExtractorPlugin  # noqa
+from archimedes.metadata.meta_file import MetafileExtractor  # noqa
+
+__all__ = [
+    "Metadata",
+    "MetadataExtractorPlugin",
+    "MetafileExtractor",
+]

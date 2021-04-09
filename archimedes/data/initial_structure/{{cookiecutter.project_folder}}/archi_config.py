@@ -6,8 +6,8 @@ root is.
 """
 
 
-from archimedes.filediscovery import FileDiscoverer
 from archimedes.core.filediscovery import StaticFileDiscoverer
+from archimedes.filediscovery import FileDiscoverer
 
 SITE_NAME: str = "{{cookiecutter.site_name}}"
 

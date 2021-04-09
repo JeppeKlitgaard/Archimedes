@@ -2,8 +2,8 @@
 This contains the default configuration values.
 """
 
-from archimedes.filediscovery import FileDiscoverer
 from archimedes.core.filediscovery import StaticFileDiscoverer
+from archimedes.filediscovery import FileDiscoverer
 
 SITE_NAME: str = "Archimedes' Bathtub"
 

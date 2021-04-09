@@ -2,11 +2,11 @@
 Contains the ArchimedesSite and associated logic.
 """
 from __future__ import annotations
+
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from archimedes.author import Author
-    from archimedes.compile import CompilerPlugin
     from archimedes.config import SiteConfig
 
 

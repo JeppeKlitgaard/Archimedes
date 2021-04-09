@@ -8,7 +8,7 @@ from types import ModuleType
 from typing import Any, Optional, Type, TypeVar
 
 import toml
-from pydantic import BaseSettings, FilePath
+from pydantic import BaseSettings
 
 from archimedes.config import (
     default_config as default_config_mod,
