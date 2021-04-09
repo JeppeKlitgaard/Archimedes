@@ -8,7 +8,7 @@ extensible.
 from abc import ABCMeta
 
 
-class BasePlugin(ABCMeta):
+class BasePlugin(metaclass=ABCMeta):
     name: str
     friendly_name: str
 

@@ -29,7 +29,6 @@ class TOMLConfig(BaseSettings):
     Base Config Class that is used by TOML-Pydantic based configurations.
 
     Currently these are:
-    - archi.toml
     - theme_config.toml
     """
 
@@ -55,10 +54,6 @@ class TOMLConfig(BaseSettings):
 
 class ThemeConfig(TOMLConfig):
     pass
-
-
-class ArchiTOMLConfig(TOMLConfig):
-    config_file: FilePath
 
 
 # Site Config

@@ -1,6 +1,7 @@
 """
 Contains file discovery logic.
 """
+from __future__ import annotations
 
 
 from abc import ABC, abstractmethod
@@ -36,7 +37,7 @@ class FileDiscoverer(ABC, BasePlugin):
         Args:
             site: The ArchimedesSite.
                 Do not alter unless you know what you're doing.
-            base_dir: Path to the directory containing `archi.toml`.
+            base_dir: Path to the directory containing `archi_config.py`.
             previously_discovered: A list of previously discovered paths.
         """
         ...

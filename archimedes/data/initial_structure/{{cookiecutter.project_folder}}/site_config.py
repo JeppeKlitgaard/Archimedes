@@ -1,1 +1,0 @@
-SITE_NAME: str = "{{cookiecutter.site_name}}"
