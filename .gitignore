@@ -13,6 +13,9 @@ __pycache__
 # Tox
 .tox
 
+# Doit
+.doit.db.*
+
 # Temporarily ignore these
 JeppeScienceSite
 archimedean_bathtub

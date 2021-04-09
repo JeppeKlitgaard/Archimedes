@@ -6,11 +6,15 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from doit.doit_cmd import DoitMain
+
     from archimedes.author import Author
     from archimedes.config import SiteConfig
 
 
 class ArchimedesSite:
+    doit_main: DoitMain | None = None
+
     def __init__(
         self,
         site_config: SiteConfig,

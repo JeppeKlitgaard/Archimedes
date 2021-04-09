@@ -7,6 +7,7 @@ import sys
 from pathlib import Path
 
 from doit.cmd_help import Help as DoitHelp
+from doit.doit_cmd import DoitMain
 
 from archimedes import ArchimedesSite
 from archimedes.config import SiteConfig
@@ -14,7 +15,7 @@ from archimedes.config import SiteConfig
 logger = logging.getLogger(__name__)
 
 
-def run_cli(args: list[str] | None = None) -> None:
+def run_cli(args: list[str] | None = None) -> int:
     """
     Runs Archimedes.
     """
@@ -88,11 +89,42 @@ def run_cli(args: list[str] | None = None) -> None:
     site = ArchimedesSite(  # noqa  assigned not used
         site_config=site_config, project_active=project_active
     )
+    doit_main = ArchimedesDoitMain(site)
+
+    return doit_main.run(args)
+
     # doit_site = DoitArchimedes(site)
 
     import pdb
 
     pdb.set_trace()
+
+
+class ArchimedesDoitMain(DoitMain):  # type: ignore
+    """
+    A subclass of DoitMain for use by Archimedes.
+    """
+
+    DOIT_CMDS = list(DoitMain.DOIT_CMDS)
+
+    def __init__(self, site: ArchimedesSite) -> None:
+        super().__init__()
+
+        self.site = site
+        self.site.doit_main = self  # So site can potentially refer back to here
+
+        self.task_loader = site.site_config.TASK_LOADER(site=self.site)
+
+    def run(self, all_args: list[str]) -> int:
+        args = self.process_args(all_args)
+
+        # Special cases:
+        if args[0] in ["--version", "-v"]:
+            args = ["version"]
+
+        ret_value: int = super().run(args)
+
+        return ret_value
 
 
 class CommandHelp(DoitHelp):  # type: ignore

@@ -13,4 +13,6 @@ RawMetaValue = Union[str, int, list[Any], dict[str, Any]]
 # see: https://github.com/python/mypy/issues/731
 # RawMetaValue = Union[str, int, list[RawMetaValue], dict[str, RawMetaValue]]
 
+DoitConfigValue = RawMetaValue
+
 Pathlike = Union[Path, str]
