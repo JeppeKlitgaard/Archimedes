@@ -19,6 +19,15 @@ def run_cli(args: Optional[list[str]] = None) -> None:
     """
 
     MARKER_FILE: str = "archi_config.py"
+    project_active: bool
+
+    # We want to make as much of the CLI available as possible even when
+    # we are not in a project folder.
+    # the ArchimedesSite.project_active flag marks whether the project
+    # has been activated or not.
+    # If True we are in an Archimedean project
+    # If False the ArchimedeanSite has been instanciated using
+    # default values and should not be considered an active site.
 
     if args is None:
         args = sys.argv[1:]
@@ -30,41 +39,52 @@ def run_cli(args: Optional[list[str]] = None) -> None:
     while True:
         archi_path = search_dir / MARKER_FILE
         if archi_path.exists():
+            project_active = True
             break
 
         # If we have gone all the way to root and still not found it...
         if search_dir == search_dir.parent:
-            print(
-                f"Unable to find '{MARKER_FILE}' in file tree. "
-                 "We are not in an Archimedes project folder!"
-            )
-
-            sys.exit(1)
+            project_active = False
+            break
 
         search_dir = search_dir.parent
 
-    base_dir = archi_path.parent
-    config_file = (base_dir / MARKER_FILE).absolute()
-    logger.info("Found project root at: %s", base_dir)
-    logger.debug("Loading configuration file: %s", config_file)
+    logger.debug("Site project active: %s", project_active)
+
+    site_config: SiteConfig
+    # Project active, load the user_config file
+    if project_active:
+        base_dir = archi_path.parent
+        config_file = (base_dir / MARKER_FILE).absolute()
+        logger.info("Found project root at: %s", base_dir)
+        logger.debug("Loading configuration file: %s", config_file)
 
 
-    import_spec = importlib.util.spec_from_file_location(
-        "user_site_config", config_file
-    )
-    user_site_config_module = importlib.util.module_from_spec(import_spec)
-    import_spec.loader.exec_module(user_site_config_module)  # type: ignore
+        import_spec = importlib.util.spec_from_file_location(
+            "user_site_config", config_file
+        )
+        user_site_config_module = importlib.util.module_from_spec(import_spec)
+        import_spec.loader.exec_module(user_site_config_module)  # type: ignore
 
-    # We have now resolved site_config
-    site_config = SiteConfig(user_config=user_site_config_module)
-    logger.debug("User site config: \n%s", SiteConfig)
+        # We have now resolved site_config
+        site_config = SiteConfig(user_config=user_site_config_module)
+        logger.debug("User site config: \n%s", SiteConfig)
+
+    # Project inactive, load default config for the purposes of
+    # setting up an ArchimedesSite
+    # This ArchimedesSite is should only be used for providing as much
+    # of the CLI as possible
+    else:
+        logger.info("Site is marked as inactive, "
+                    "instanciate with default configuration to provide CLI.")
+
+        site_config = SiteConfig()
 
     # Set up site
-    site = ArchimedesSite(site_config=site_config)
+    site = ArchimedesSite(site_config=site_config, project_active=project_active)
     # doit_site = DoitArchimedes(site)
 
     import pdb
-
     pdb.set_trace()
 
 

@@ -13,10 +13,12 @@ if TYPE_CHECKING:
 class ArchimedesSite:
     def __init__(
         self,
-        site_config: SiteConfig
+        site_config: SiteConfig,
+        project_active: bool,
     ) -> None:
 
         self.site_config = site_config
+        self.project_active = project_active
 
     def resolve_author(self, ident: str) -> Author:
         pass
