@@ -5,7 +5,7 @@ from __future__ import annotations
 
 from pathlib import Path
 from types import ModuleType
-from typing import Any, Optional, TypeVar
+from typing import Any, TypeVar
 
 import toml
 from pydantic import BaseSettings
@@ -37,7 +37,7 @@ class TOMLConfig(BaseSettings):
         """
         Loads a TOML Config file and parses it as a TOMLConfig.
         """
-        with open(filepath, "r") as f:
+        with open(filepath) as f:
             filestring = f.read()
 
         return cls.loads(filestring)
@@ -84,9 +84,9 @@ class SiteConfig:
 
     def __init__(
         self,
-        user_config: Optional[ModuleType] = None,
-        default_config: Optional[ModuleType] = None,
-        runtime_config: Optional[ModuleType] = None,
+        user_config: ModuleType | None = None,
+        default_config: ModuleType | None = None,
+        runtime_config: ModuleType | None = None,
     ) -> None:
 
         if user_config is None:

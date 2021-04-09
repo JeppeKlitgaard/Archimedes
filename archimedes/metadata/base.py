@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from abc import abstractmethod
 from datetime import datetime
-from typing import MutableMapping, Optional, cast
+from typing import MutableMapping, cast
 
 from pydantic import BaseModel, Field
 
@@ -18,7 +18,7 @@ class Metadata(BaseModel):
     authors: list[Author]
     publish_date: datetime
     last_update_date: datetime
-    expiry_date: Optional[datetime]
+    expiry_date: datetime | None
     draft: bool = False
 
     @classmethod

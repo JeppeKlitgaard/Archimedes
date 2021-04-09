@@ -1,9 +1,10 @@
+from __future__ import annotations
+
 import importlib.util
 import logging
 import os
 import sys
 from pathlib import Path
-from typing import Optional
 
 from doit.cmd_help import Help as DoitHelp
 
@@ -13,7 +14,7 @@ from archimedes.config import SiteConfig
 logger = logging.getLogger(__name__)
 
 
-def run_cli(args: Optional[list[str]] = None) -> None:
+def run_cli(args: list[str] | None = None) -> None:
     """
     Runs Archimedes.
     """

@@ -6,7 +6,6 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from pathlib import Path
 from re import Pattern
-from typing import Optional
 
 from archimedes import ArchimedesSite
 from archimedes.plugin import BasePlugin
@@ -23,7 +22,7 @@ class FileDiscoverer(ABC, BasePlugin):
     yielded by prior file discoverers.
     """
 
-    file_patterns: Optional[list[Pattern[str]]] = None
+    file_patterns: list[Pattern[str]] | None = None
     # May be used by some discoverers, but not neccessarily.
 
     @abstractmethod
