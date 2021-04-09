@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from abc import abstractmethod
 from datetime import datetime
-from typing import MutableMapping, Optional, Type, cast
+from typing import MutableMapping, Optional, cast
 
 from pydantic import BaseModel, Field
 
@@ -23,7 +23,7 @@ class Metadata(BaseModel):
 
     @classmethod
     def from_raw_dict(
-        cls: Type[Metadata], raw_dict: MutableMapping[str, RawMetaValue]
+        cls: type[Metadata], raw_dict: MutableMapping[str, RawMetaValue]
     ) -> Metadata:
 
         # Manually resolve Authors

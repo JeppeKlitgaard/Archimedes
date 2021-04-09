@@ -5,7 +5,7 @@ from __future__ import annotations
 
 from pathlib import Path
 from types import ModuleType
-from typing import Any, Optional, Type, TypeVar
+from typing import Any, Optional, TypeVar
 
 import toml
 from pydantic import BaseSettings
@@ -33,7 +33,7 @@ class TOMLConfig(BaseSettings):
     """
 
     @classmethod
-    def load(cls: Type[T], filepath: Path) -> T:
+    def load(cls: type[T], filepath: Path) -> T:
         """
         Loads a TOML Config file and parses it as a TOMLConfig.
         """
@@ -43,7 +43,7 @@ class TOMLConfig(BaseSettings):
         return cls.loads(filestring)
 
     @classmethod
-    def loads(cls: Type[T], filestring: str) -> T:
+    def loads(cls: type[T], filestring: str) -> T:
         """
         Loads a TOML formatted config string and parses it as a TOMLConfig.
         """
